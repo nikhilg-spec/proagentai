@@ -74,15 +74,26 @@ const Navbar = () => {
               {navLinks.map((link) => (
                 <a
                   key={link.href}
-                  href={link.href}
+                  href="#"
                   className="text-sm font-medium text-muted-foreground hover:text-foreground"
-                  onClick={() => setMobileOpen(false)}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    setMobileOpen(false);
+                    scrollToSection(link.href);
+                  }}
                 >
                   {link.label}
                 </a>
               ))}
               <Button variant="default" size="sm" asChild>
-                <a href="#contact" onClick={() => setMobileOpen(false)}>
+                <a
+                  href="#"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    setMobileOpen(false);
+                    scrollToSection("#contact");
+                  }}
+                >
                   Request Demo
                 </a>
               </Button>
