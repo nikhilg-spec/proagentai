@@ -5,6 +5,11 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { MapPin, Mail, Phone, Send } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import emailjs from "@emailjs/browser";
+
+const SERVICE_ID = "service_7mxf36e";
+const TEMPLATE_ID = "template_9g6fmhn";
+const PUBLIC_KEY = "_DfUrvq_ghtZBaaEf";
 
 const ContactSection = () => {
   const { toast } = useToast();
@@ -14,14 +19,39 @@ const ContactSection = () => {
     organization: "",
     message: "",
   });
+  const [isLoading, setIsLoading] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    toast({
-      title: "Demo Request Received",
-      description: "We'll get back to you within 24 hours.",
-    });
-    setFormData({ name: "", email: "", organization: "", message: "" });
+    setIsLoading(true);
+
+    try {
+      await emailjs.send(
+        SERVICE_ID,
+        TEMPLATE_ID,
+        {
+          from_name: formData.name,
+          from_email: formData.email,
+          organization: formData.organization,
+          message: formData.message,
+        },
+        PUBLIC_KEY
+      );
+
+      toast({
+        title: "Demo Request Sent",
+        description: "We'll get back to you within 24 hours.",
+      });
+      setFormData({ name: "", email: "", organization: "", message: "" });
+    } catch (error) {
+      toast({
+        title: "Something went wrong",
+        description: "Please try again or email us directly.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -169,9 +199,14 @@ const ContactSection = () => {
                   maxLength={1000}
                 />
               </div>
-              <Button type="submit" className="w-full" size="lg">
+              <Button
+                type="submit"
+                className="w-full"
+                size="lg"
+                disabled={isLoading}
+              >
                 <Send className="w-4 h-4 mr-2" />
-                Request Demo
+                {isLoading ? "Sending..." : "Request Demo"}
               </Button>
             </form>
           </motion.div>
