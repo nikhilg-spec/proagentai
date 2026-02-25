@@ -101,7 +101,7 @@ const ContactSection = () => {
                     <p className="text-muted-foreground text-sm">
                       ProagentAI Technologies
                       <br />
-                      Healthcare Innovation District
+                      6-17-2/8, East point colony , Visakhapatnam, 530017
                     </p>
                   </div>
                 </div>
@@ -112,7 +112,9 @@ const ContactSection = () => {
                   <div>
                     <p className="font-medium text-foreground text-sm">Email</p>
                     <p className="text-muted-foreground text-sm">
-                      contact@proagentai.com
+                      <a href="mailto:contact@proagentai.com">
+                        contact@proagentai.com
+                      </a>
                     </p>
                   </div>
                 </div>
@@ -123,7 +125,7 @@ const ContactSection = () => {
                   <div>
                     <p className="font-medium text-foreground text-sm">Phone</p>
                     <p className="text-muted-foreground text-sm">
-                      +1 (800) PROAGENT
+                      <a href="tel:+91 6309705198">+91 6309705198</a>
                     </p>
                   </div>
                 </div>
@@ -183,7 +185,7 @@ const ContactSection = () => {
                   onChange={(e) =>
                     setFormData({ ...formData, organization: e.target.value })
                   }
-                  maxLength={200}
+                  maxLength={1000}
                 />
               </div>
               <div>
@@ -192,6 +194,7 @@ const ContactSection = () => {
                 </label>
                 <Textarea
                   placeholder="Tell us about your needs..."
+                  required
                   value={formData.message}
                   onChange={(e) =>
                     setFormData({ ...formData, message: e.target.value })

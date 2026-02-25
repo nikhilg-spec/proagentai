@@ -1,8 +1,11 @@
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
-import { ArrowRight, Shield } from "lucide-react";
+import { ArrowRight, Shield, Bot } from "lucide-react";
 import heroBg from "@/assets/hero-bg.jpg";
 import { scrollToSection } from "@/lib/utils";
+import indiaMap from "@/assets/in.svg";
+import cloud from "@/assets/cloud.svg";
+import lock from "@/assets/lock.svg";
 
 const HeroSection = () => {
   return (
@@ -70,26 +73,49 @@ const HeroSection = () => {
             </Button>
           </div>
         </motion.div>
-
         {/* Stats row */}
         <motion.div
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.4 }}
-          className="mt-20 grid grid-cols-2 md:grid-cols-4 gap-6 max-w-3xl mx-auto"
+          className="mt-20 grid grid-cols-2 md:grid-cols-4 gap-6 max-w-4xl mx-auto"
         >
           {[
-            { value: "99.9%", label: "Uptime" },
-            { value: "256-bit", label: "Encryption" },
-            { value: "100%", label: "Secure" },
-            { value: "24/7", label: "Monitoring" },
-          ].map((stat) => (
-            <div key={stat.label} className="text-center">
-              <div className="text-2xl md:text-3xl font-bold text-glow-primary">
-                {stat.value}
+            {
+              icon: <img src={indiaMap} alt="India" className="w-8 h-8" />,
+              title: "Made for India",
+              subtitle: "Healthcare-First",
+            },
+            {
+              icon: <img src={lock} alt="India" className="w-8 h-8" />,
+              title: "Secure Patient",
+              subtitle: "Data Systems",
+            },
+            {
+              icon: <img src={cloud} alt="India" className="w-8 h-8" />,
+              title: "Cloud-Native",
+              subtitle: "& Scalable",
+            },
+            {
+              icon: <Bot className="w-8 h-8 text-primary" />,
+              title: "AI-Driven Clinical",
+              subtitle: "Automation",
+            },
+          ].map((item) => (
+            <div
+              key={item.title}
+              className="text-center flex flex-col items-center gap-2 p-4 rounded-xl"
+            >
+              <div className="w-14 h-14 rounded-full bg-primary/20 border-primary/20 flex items-center justify-center">
+                {item.icon}
               </div>
-              <div className="text-sm text-primary-foreground/50 mt-1">
-                {stat.label}
+              <div>
+                <div className="text-sm md:text-base font-bold text-primary-foreground">
+                  {item.title}
+                </div>
+                <div className="text-xs text-primary-foreground/50 mt-0.5">
+                  {item.subtitle}
+                </div>
               </div>
             </div>
           ))}
